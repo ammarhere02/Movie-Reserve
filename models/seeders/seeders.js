@@ -35,6 +35,7 @@ const user = sequelizeConnect.define("user", {
         {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
     password:
         {
@@ -85,6 +86,7 @@ const movies = sequelizeConnect.define("movies", {
 
 })
 
-user.belongsTo(movies)
-movies.belongsTo(user)
+user.belongsToMany(movies , {through : 'usermovies', as: 'movies', foreignKey: 'id' });
+movies.belongsToMany(user, {through : 'usermovies' , as : 'user', foreignKey: 'moviesid' });
+
 module.exports = {user , movies}

@@ -1,10 +1,10 @@
-const {signUp , signIn} = require('../../controllers/authentication')
+const {register , login} = require('../../controllers/authentication')
 const express = require("express");
 
 const authRoute = express.Router();
 
-authRoute.post('/register', signUp)
+authRoute.post('/register', register)
 
-authRoute.post('/login', signIn)
+authRoute.post('/login', login)
 
 module.exports = authRoute

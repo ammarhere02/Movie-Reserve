@@ -2,15 +2,28 @@ const jwt = require('jsonwebtoken')
 const {user} = require("../models/seeders/seeders")
 const bcrypt = require("bcrypt")
 const dotenv= require("dotenv")
+const {where} = require("sequelize");
 dotenv.config()
 const secretKey = process.env.SECRETKEY
 
-const signUp = async(req, res) => {
+const register = async(req, res) => {
 
-    const {username , email , password} = req.body
+    const username = req.body.username
+    const email = req.body.email
+    const password = req.body.password
 
     if(!username || !email || !password){
         return res.status(400).json({error: "Username or email or password not found"})
+    }
+
+    const existingUser = await user.findOne({
+        where: {
+            email: email,
+            username: username
+        }
+    })
+    if(existingUser){
+        return res.status(400).json({error: "Your credentials already exists"})
     }
 
     const hashPassword = await bcrypt.hash(password, 10)
@@ -19,7 +32,7 @@ const signUp = async(req, res) => {
     return res.status(200).json({message:"User created successfully"})
 }
 
-const signIn = async(req, res) => {
+const login = async(req, res) => {
 
     const {email, password} = req.body
 
@@ -45,4 +58,4 @@ const signIn = async(req, res) => {
     console.log("User logged in and token generated successfully")
     return res.status(200).json({token: token})
 }
-module.exports =  {signUp, signIn}
+module.exports =  {register, login}
