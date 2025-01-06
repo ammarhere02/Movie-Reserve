@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require("dotenv");
-const {signIn} = require("../controllers/authentication");
 dotenv.config();
 const secretKey = process.env.SECRETKEY;
 
@@ -26,6 +25,4 @@ const authorization = async(req, res) => {
 
 }
 
-
-
-module.exports = {authorization}
+module.exports = {authorization};
