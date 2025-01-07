@@ -4,7 +4,7 @@ dotenv.config();
 const secretKey = process.env.SECRETKEY;
 
 
-const authorization = async(req, res) => {
+const authorization = (req, res , next) => {
 
     req.user = null;
     const authHeader = req.headers.authorization;
@@ -16,12 +16,18 @@ const authorization = async(req, res) => {
     if(!token){
         return res.status(401).json({message:"No token provided"});
     }
-    const verifyToken = jwt.verify(token , secretKey);
-    if(!verifyToken){
-        return res.status(401).json({message:"Your credentials does'ot match"});
+
+    try
+    {
+        let verifyToken = jwt.verify(token , secretKey);
+            req.user = verifyToken;
+            console.log(req.user)
+            console.log(verifyToken);
+            next()
     }
-    console.log(verifyToken);
-    return res.status(200).json({message:"Authorization completed successfully"});
+    catch(err){
+        return res.status(401).json({message:"Your credentials doesn't match"});
+    }
 
 }
 

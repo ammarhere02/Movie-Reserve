@@ -2,16 +2,12 @@ const jwt = require('jsonwebtoken')
 const {user} = require("../models/seeders/seeders")
 const bcrypt = require("bcrypt")
 const dotenv= require("dotenv")
-const {where} = require("sequelize");
 dotenv.config()
 const secretKey = process.env.SECRETKEY
 
 const register = async(req, res) => {
 
-    const username = req.body.username
-    const email = req.body.email
-    const password = req.body.password
-
+const {username , email , password} = req.body
     if(!username || !email || !password){
         return res.status(400).json({error: "Username or email or password not found"})
     }
@@ -48,7 +44,7 @@ const login = async(req, res) => {
     {
         return res.status(400).json({error: "Invalid password"})
     }
-    const token = jwt.sign({email: email}, secretKey, {expiresIn: '1h'})
+    const token = jwt.sign({email: email , role : checkUser.role }, secretKey, {expiresIn: '1h'})
 
     const verifyToken = await jwt.verify(token, secretKey)
     if(!verifyToken)

@@ -4,7 +4,6 @@ const {restrictionForUser ,restrictionForAdmin} = require("../../middlewares/res
 
 const userRouter = express.Router();
 
-
 userRouter.get('/admin' , authorization , restrictionForAdmin,(req, res) => {
 
     res.status(200).json("Welcome Admin")

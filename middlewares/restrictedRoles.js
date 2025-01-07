@@ -9,30 +9,34 @@ const secretKey = process.env.SECRETKEY;
     return (req, res , next) => {
 
         const authHeader = req.headers.authorization;
-        if (!authHeader) {
+        if (!authHeader || !authHeader.startsWith('Bearer')) {
             return res.status(401).json({message:"Not authorized"});
         }
-        console.log("Got the headers ")
         const token = authHeader.split(" ")[1];
-        const verifyToken = jwt.verify(token, secretKey);
-        if(!verifyToken){
-             res.status(401).json({message:"Credentials doesnot match"});
-        }
-
-        if(!role.includes(verifyToken.role))
+        let verifyToken;
+        try
         {
-             res.status(401).json({message:"Your role is restricted to access the page"});
+            verifyToken = jwt.verify(token, secretKey);
+            console.log("Got the headers ")
         }
-        console.log(verifyToken.role);
+        catch (err) {
+            console.log("Error in verifying token: ", err);
+        }
 
-        res.status(200).json({message:`Successfully logged in as ${role}`});
-        next()
+       if(role.includes(verifyToken.role))
+       {
+           console.log(`${verifyToken.role} is accessed to the page`);
+           next()
+       }
+       else
+       {
+           return res.status(401).json({message:"Not authorized"});
+       }
+
     }
-
-
 }
 
-const restrictionForUser = restrictedRole(["user" , "admin"])
-const restrictionForAdmin = restrictedRole(["admin"])
+const restrictionForUser = restrictedRole(["user"])
+const restrictionForAdmin = restrictedRole(["admin" , "user"])
 
 module.exports = {restrictionForUser, restrictionForAdmin};
