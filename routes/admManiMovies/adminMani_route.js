@@ -30,6 +30,9 @@ adminMoviesRouter.patch('/admin/movies/:id' , adminPatchMovies,(req, res) => {
 adminMoviesRouter.delete('/admin/movies/:id' , adminDeleteMovies,(req, res) => {
     res.status(200).json({message : "Movie deleted successfully"})
 } )
+
+
+
 module.exports = adminMoviesRouter;
 
 
