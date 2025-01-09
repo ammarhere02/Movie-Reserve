@@ -4,15 +4,16 @@ const {restrictionForUser ,restrictionForAdmin} = require("../../middlewares/res
 
 const userRouter = express.Router();
 
-userRouter.get('/admin' , authorization , restrictionForAdmin,(req, res) => {
+userRouter.get('/admin' , authorization , restrictionForAdmin,(req, res, next) => {
 
     res.status(200).json("Welcome Admin")
-
+    next()
 })
 
-userRouter.get('/user', authorization , restrictionForUser,(req, res) => {
+userRouter.get('/user', authorization , restrictionForUser,(req, res, next) => {
 
     res.status(200).json("Welcome User")
+    next()
 })
 
 module.exports = userRouter

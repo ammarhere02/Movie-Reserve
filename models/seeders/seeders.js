@@ -85,7 +85,6 @@ const movies = sequelizeConnect.define("movies", {
         }
 
 })
-
 user.belongsToMany(movies , {through : 'usermovies', as: 'movies', foreignKey: 'id' });
 movies.belongsToMany(user, {through : 'usermovies' , as : 'user', foreignKey: 'moviesid' });
 
