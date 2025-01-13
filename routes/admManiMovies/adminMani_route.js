@@ -16,19 +16,22 @@ adminMoviesRouter.post('/admin/movies' , adminPostMovies,(req, res) => {
 adminMoviesRouter.get('/admin/movies' , adminGetMovies ,(req, res) => {
     res.status(200)
     console.log("Routing of getting movies successful")
+
 } )
 
-adminMoviesRouter.get('/admin/movies/:id' , adminGetMoviesByID , (req, res) => {
+adminMoviesRouter.get('/admin/movies/:id' , adminGetMoviesByID , (req, res ) => {
     res.status(200)
     console.log("Routing of getting movies by id successful ")
 })
 
 adminMoviesRouter.patch('/admin/movies/:id' , adminPatchMovies,(req, res) => {
     res.status(200).json({message : "Movie updated successfully"})
+
 })
 
-adminMoviesRouter.delete('/admin/movies/:id' , adminDeleteMovies,(req, res) => {
+adminMoviesRouter.delete('/admin/movies/:id' , adminDeleteMovies,(req, res ) => {
     res.status(200).json({message : "Movie deleted successfully"})
+
 } )
 
 

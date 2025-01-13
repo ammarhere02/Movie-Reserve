@@ -1,15 +1,16 @@
+
 const { movies} = require('../../models/seeders/seeders')
 
 const adminPostMovies = async(req, res) => {
 
-    const {name , genre , showTiming} = req.body
+    const {name , genre } = req.body
 
     if(!name || !genre || !showTiming){
 
         return res.status(400).json({error: "Please enter the fields of movie"})
     }
 
-    const postMovie = await movies.create({name , genre, showTiming})
+    const postMovie = await movies.create({name , genre})
 
     if(!postMovie)
     {
@@ -45,9 +46,9 @@ const adminGetMoviesByID = async(req, res) =>
     }
     else
     {
-       const getID =  await movies.findByPk(id)
+        const getID =  await movies.findByPk(id)
         console.log("Found the id with the specific movie")
-         return res.status(200).json(getID)
+        return res.status(200).json(getID)
     }
 }
 

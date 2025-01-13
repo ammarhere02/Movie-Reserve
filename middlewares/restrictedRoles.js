@@ -26,7 +26,7 @@ const secretKey = process.env.SECRETKEY;
        if(role.includes(verifyToken.role))
        {
            console.log(`${verifyToken.role} is accessed to the page`);
-           next()
+           return next()
        }
        else
        {

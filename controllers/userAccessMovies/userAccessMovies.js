@@ -1,5 +1,6 @@
 const {movies} = require('../../models/seeders/seeders')
 
+
 const userGetMovies = async (req, res) => {
 
     try

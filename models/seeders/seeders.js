@@ -20,22 +20,20 @@ sequelizeConnect.sync()
 
 const user = sequelizeConnect.define("user", {
 
-    id:
+    user_id:
         {
-          primaryKey: true,
-          type: DataTypes.INTEGER,
-          autoIncrement: true,
+            primaryKey: true,
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
         },
     username:
         {
             type: DataTypes.STRING,
-            allowNull: false,
+
         },
     email:
         {
             type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
         },
     password:
         {
@@ -48,20 +46,6 @@ const user = sequelizeConnect.define("user", {
         }
 
 })
-
-
-// async function seedAdmin() {
-//     const hashPassword = await bcrypt.hash("admin098098", 10)
-//     await user.create({
-//         username: "admin",
-//         email: "admin@gmail.com",
-//         password: hashPassword,
-//         role: "admin",
-//     })
-// }
-// const admin = seedAdmin()
-// console.log(admin)
-
 
 const movies = sequelizeConnect.define("movies", {
 
@@ -79,13 +63,91 @@ const movies = sequelizeConnect.define("movies", {
         {
             type: DataTypes.STRING,
         },
-    showTiming:
+    user_id:
         {
-            type: DataTypes.DATE
-        }
+            type: DataTypes.INTEGER,
+        },
 
 })
-user.belongsToMany(movies , {through : 'usermovies', as: 'movies', foreignKey: 'id' });
-movies.belongsToMany(user, {through : 'usermovies' , as : 'user', foreignKey: 'moviesid' });
 
-module.exports = {user , movies}
+
+const ShowTime = sequelizeConnect.define("ShowTime", {
+    showTimeId: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    date: {
+        type: DataTypes.STRING,
+    },
+    startTime: {
+        type: DataTypes.DATE,
+    },
+    endTime: {
+        type: DataTypes.DATE,
+    },
+    seats: {
+        type: DataTypes.INTEGER,
+    },
+
+    moviesId: {
+        type: DataTypes.INTEGER
+        }
+});
+
+const Booking = sequelizeConnect.define("Booking", {
+    bookingId: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+    },
+    showTimeId: {
+        type: DataTypes.INTEGER,
+    },
+    status: {
+        type: DataTypes.STRING,
+        defaultValue: "PENDING",
+    },
+    moviesId: {
+        type: DataTypes.INTEGER,
+    },
+});
+
+
+// async function seedAdmin() {
+//     const hashPassword = await bcrypt.hash("admin098098", 10)
+//     await user.create({
+//         username: "admin",
+//         email: "admin@gmail.com",
+//         password: hashPassword,
+//         role: "admin",
+//     })
+// }
+// const admin = seedAdmin()
+// console.log(admin)
+
+// movies  and ShowTime (One-to-Many)
+
+user.hasOne(movies , {foreignKey: "user_id"})
+movies.belongsTo(user , {foreignKey: "user_id"})
+
+
+movies.hasMany(ShowTime, { foreignKey: "moviesId" });
+ShowTime.belongsTo(movies, { foreignKey: "moviesId" });
+
+movies.hasMany(ShowTime, {
+    foreignKey: 'moviesId',
+    onDelete: 'CASCADE',
+});
+ShowTime.belongsTo(movies, {
+    foreignKey: 'moviesId',
+});
+
+
+// ShowTime and Booking (Many-to-Many)
+ShowTime.belongsToMany(Booking, { through: "ShowTimeBookings", foreignKey: "showTimeId" });
+Booking.belongsToMany(ShowTime, { through: "ShowTimeBookings", foreignKey: "bookingId" });
+
+
+// Exporting Models
+module.exports = {user , movies ,  ShowTime , Booking};
+

@@ -17,5 +17,4 @@ userMoviesRouter.get('/user/movies/:id' ,userGetMovieById, (req, res) => {
     console.log("Routing of user by movies id successful ")
 })
 
-
 module.exports = userMoviesRouter;
