@@ -39,4 +39,4 @@ const secretKey = process.env.SECRETKEY;
 const restrictionForUser = restrictedRole(["user"])
 const restrictionForAdmin = restrictedRole(["admin" , "user"])
 
-module.exports = {restrictionForUser, restrictionForAdmin};
+    module.exports = {restrictionForUser, restrictionForAdmin};

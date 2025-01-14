@@ -5,7 +5,7 @@ const adminPostMovies = async(req, res) => {
 
     const {name , genre } = req.body
 
-    if(!name || !genre || !showTiming){
+    if(!name || !genre){
 
         return res.status(400).json({error: "Please enter the fields of movie"})
     }

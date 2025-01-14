@@ -1,6 +1,7 @@
 const {user} = require('../../models/seeders/seeders')
 
 
+
 const adminGetUsers = async (req,res)=>{
 
     try

@@ -9,25 +9,25 @@ showtimeRouter.use(authorization , restrictionForAdmin );
 
 
 
-showtimeRouter.post('/admin/movies/:movieId/showtime' , adminPostShowTime , (req, res) => {
+showtimeRouter.post('/movies/:id/showtime' , adminPostShowTime , (req, res) => {
 
     res.status(200).json({"success":true});
 })
 
-showtimeRouter.get('/admin/movies/:movieId/showtime' , adminGetShowTime,(req, res) => {
+showtimeRouter.get('/movies/:movieId/showtime' , adminGetShowTime,(req, res) => {
     res.status(200).json({"success":true});
 })
 
 //specific movies , specific showtime(this router might cause error)
-showtimeRouter.get('/:movieId/showtime/:id' , adminGetShowTimeById , (req, res) => {
+showtimeRouter.get('/movies/:movieId/showtime/:id' , adminGetShowTimeById , (req, res) => {
     res.status(200).json({"success":true});
 })
 
-showtimeRouter.patch('/admin/movies/:movieId/showtime/:id' , adminUpdateShowTime,(req, res) => {
+showtimeRouter.patch('/movies/:movieId/showtime/:id' , adminUpdateShowTime,(req, res) => {
     res.status(200).json({"success":true});
 })
 
-showtimeRouter.delete('/admin/movies/:movieId/showtime/:id' , adminDeleteShowTime , (req, res) => {
+showtimeRouter.delete('/movies/:movieId/showtime/:id' , adminDeleteShowTime , (req, res) => {
     res.status(200).json({"success":true});
 })
 
