@@ -48,31 +48,23 @@ const user = sequelizeConnect.define("user", {
 })
 
 const movies = sequelizeConnect.define("movies", {
-
-    id:
-        {
-            primaryKey: true,
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-        },
-    name:
-        {
-            type: DataTypes.STRING,
-        },
-    genre:
-        {
-            type: DataTypes.STRING,
-        },
-    user_id:
-        {
-            type: DataTypes.INTEGER,
-        },
-
-})
-
+    id: {
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+    },
+    name: {
+        type: DataTypes.STRING,
+    },
+    genre: {
+        type: DataTypes.STRING,
+    },
+}, {
+    timestamps: true,
+});
 
 const ShowTime = sequelizeConnect.define("ShowTime", {
-    showTimeId: {
+    id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -89,11 +81,17 @@ const ShowTime = sequelizeConnect.define("ShowTime", {
     seats: {
         type: DataTypes.INTEGER,
     },
+    movieId: {
+        type: DataTypes.INTEGER,
 
-    moviesId: {
-        type: DataTypes.INTEGER
+        references: {
+            model: movies,
+            key: 'id'
         }
+    }
 });
+
+
 
 const Booking = sequelizeConnect.define("Booking", {
     bookingId: {
@@ -106,9 +104,6 @@ const Booking = sequelizeConnect.define("Booking", {
     status: {
         type: DataTypes.STRING,
         defaultValue: "PENDING",
-    },
-    moviesId: {
-        type: DataTypes.INTEGER,
     },
 });
 
@@ -124,29 +119,17 @@ const Booking = sequelizeConnect.define("Booking", {
 // }
 // const admin = seedAdmin()
 // console.log(admin)
+// Define relationships
 
-// movies  and ShowTime (One-to-Many)
-
-user.hasOne(movies , {foreignKey: "user_id"})
-movies.belongsTo(user , {foreignKey: "user_id"})
-
-
-movies.hasMany(ShowTime, { foreignKey: "moviesId" });
-ShowTime.belongsTo(movies, { foreignKey: "moviesId" });
-
-movies.hasMany(ShowTime, {
-    foreignKey: 'moviesId',
-    onDelete: 'CASCADE',
-});
-ShowTime.belongsTo(movies, {
-    foreignKey: 'moviesId',
-});
+user.hasMany(movies, { foreignKey: "user_id" });
+movies.belongsTo(user, { foreignKey: "user_id" });
 
 
-// ShowTime and Booking (Many-to-Many)
-ShowTime.belongsToMany(Booking, { through: "ShowTimeBookings", foreignKey: "showTimeId" });
-Booking.belongsToMany(ShowTime, { through: "ShowTimeBookings", foreignKey: "bookingId" });
+movies.hasMany(ShowTime, { foreignKey: "movieId" });
+ShowTime.belongsTo(movies, { foreignKey: "movieId" });
 
+ShowTime.hasMany(Booking, { foreignKey: "showTimeId" });
+Booking.belongsTo(ShowTime, { foreignKey: "showTimeId" });
 
 // Exporting Models
 module.exports = {user , movies ,  ShowTime , Booking};

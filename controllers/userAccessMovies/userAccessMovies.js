@@ -1,4 +1,4 @@
-const {movies} = require('../../models/seeders/seeders')
+const {movies} = require('../../models/seeders')
 
 
 const userGetMovies = async (req, res) => {
