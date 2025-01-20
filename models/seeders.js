@@ -97,6 +97,7 @@ const Booking = sequelizeConnect.define("Booking", {
     bookingId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
     },
     showTimeId: {
         type: DataTypes.INTEGER,
