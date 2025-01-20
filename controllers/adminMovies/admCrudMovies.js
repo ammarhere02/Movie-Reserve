@@ -1,5 +1,5 @@
 
-const { movies} = require('../../models/seeders/seeders')
+const { movies} = require('../../models/seeders')
 
 const adminPostMovies = async(req, res) => {
 

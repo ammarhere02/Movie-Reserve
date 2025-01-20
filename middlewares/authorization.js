@@ -5,7 +5,7 @@ const secretKey = process.env.SECRETKEY;
 
 
 const authorization = (req, res , next) => {
-
+let verifyToken;
     req.user = null;
     const authHeader = req.headers.authorization;
     if(!authHeader){
@@ -19,10 +19,8 @@ const authorization = (req, res , next) => {
 
     try
     {
-        let verifyToken = jwt.verify(token , secretKey);
-            req.user = verifyToken;
-            console.log(req.user)
-            console.log(verifyToken);
+        verifyToken = jwt.verify(token , secretKey);
+        req.user = verifyToken;
             next()
     }
     catch(err){
