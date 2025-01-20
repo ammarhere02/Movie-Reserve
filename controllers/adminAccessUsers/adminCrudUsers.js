@@ -1,4 +1,4 @@
-const {user} = require('../../models/seeders')
+const {user} = require('../../models/seeders/seeders')
 
 
 

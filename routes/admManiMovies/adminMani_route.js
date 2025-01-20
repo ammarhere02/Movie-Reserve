@@ -57,7 +57,7 @@ adminMoviesRouter.post('/admin/movies' , adminPostMovies,(req, res) => {
  *         description: List of all movies retrieved successfully
  */
 
-adminMoviesRouter.get('/movies' , adminGetMovies ,(req, res) => {
+adminMoviesRouter.get('/admin/movies' , adminGetMovies ,(req, res) => {
     res.status(200)
     console.log("Routing of getting movies successful")
 
