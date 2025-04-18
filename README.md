@@ -72,3 +72,6 @@ Create a `.env` file in the root directory:
 
 ## Clone the Repo
 git clone https://github.com/ammarhere02/Movie-Reserve.git
+
+--You can also upvote this project here:
+https://roadmap.sh/projects/movie-reservation-system
