@@ -69,3 +69,6 @@ RESTful API service with Swagger documentation for user management and admin acc
 ## Configuration
 
 Create a `.env` file in the root directory:
+
+## Clone the Repo
+git clone https://github.com/ammarhere02/Movie-Reserve.git
