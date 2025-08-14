@@ -1,0 +1,7 @@
+@@ .. @@
+ {
+-  "name": "vite-project",
++  "name": "movie-reserve-frontend",
+   "private": true,
+   "version": "0.0.0",
+   "type": "module",
